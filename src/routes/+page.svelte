@@ -1,51 +1,64 @@
 <script>
-  let name = 'Michael Scott';
-  let src =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwsM9TmM7fVwF49HtuiOEYgUS-xLAPlDti5zTKR60HI6X7Q6OmTThy1wToaoNe67oHsPVYaA';
-  let title = 'Manager';
-  let likes = $state(0);
+  import ProfileCard from '$lib/components/ProfileCard.svelte';
 
-  function incrementLikes() {
-    likes += 1;
-  }
+  const users = [
+    {
+      name: 'Michael Scott',
+      imageUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwsM9TmM7fVwF49HtuiOEYgUS-xLAPlDti5zTKR60HI6X7Q6OmTThy1wToaoNe67oHsPVYaA',
+      title: 'Manager',
+    },
+    {
+      name: 'Danny',
+      imageUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwsM9TmM7fVwF49HtuiOEYgUS-xLAPlDti5zTKR60HI6X7Q6OmTThy1wToaoNe67oHsPVYaA',
+      title: 'tree feller',
+    },
+  ];
 </script>
 
-<div class="profile-card">
-  <h2>{name}</h2>
-  <img {src} alt="headshot" class="profile-picture" />
-  <p>{title}</p>
-  <button
-    onclick={incrementLikes}
-    style="background-color: {likes >= 1
-      ? '#ffeeee'
-      : '#eeeeee'}; color: black; font-size: 16px; border: none; padding: 8px; border-radius: 30%; cursor: pointer;"
-  >
-    {likes >= 1 ? '❤️' : '🩶'}
-  </button>
-</div>
+<main>
+  <h1>Who played in the game?</h1>
+  <div class="profiles-grid">
+    {#each users as user}
+      <ProfileCard {...user} />
+    {/each}
+  </div>
+</main>
 
 <style>
-  .profile-card {
-    border: 1px solid #ccc;
-    padding: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  h1 {
     text-align: center;
-    max-width: 300px;
-    margin: auto;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: #1f2937;
   }
-  .profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 16px;
+
+  .profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
   }
-  h2 {
-    font-size: 1.2em;
-    margin: 0 0 8px 0;
-  }
-  p {
-    font-size: 1em;
-    color: #666;
+
+  @media (max-width: 640px) {
+    main {
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .profiles-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

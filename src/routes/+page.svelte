@@ -1,26 +1,26 @@
-<script>
-  import ProfileCard from '$lib/components/ProfileCard.svelte';
+<script context="module">
+  export async function load({ fetch }) {
+    const response = await fetch('/api/users');
+    const users = await response.json();
+    return { users };
+  }
+</script>
 
-  const users = [
-    {
-      name: 'Michael Scott',
-      imageUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwsM9TmM7fVwF49HtuiOEYgUS-xLAPlDti5zTKR60HI6X7Q6OmTThy1wToaoNe67oHsPVYaA',
-      title: 'Manager',
-    },
-    {
-      name: 'Danny',
-      imageUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwsM9TmM7fVwF49HtuiOEYgUS-xLAPlDti5zTKR60HI6X7Q6OmTThy1wToaoNe67oHsPVYaA',
-      title: 'tree feller',
-    },
-  ];
+<script>
+  import { goto } from '$app/navigation';
+  import ProfileCard from '$lib/components/ProfileCard.svelte';
+  export let data;
+
+  function navigateToNewUser() {
+    goto('/new-user');
+  }
 </script>
 
 <main>
   <h1>Who played in the game?</h1>
+  <button on:click={navigateToNewUser}>Create New User</button>
   <div class="profiles-grid">
-    {#each users as user}
+    {#each data.users as user}
       <ProfileCard {...user} />
     {/each}
   </div>
@@ -39,6 +39,22 @@
     font-weight: 700;
     margin-bottom: 3rem;
     color: #1f2937;
+  }
+
+  button {
+    display: block;
+    margin: 0 auto 2rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: #1f2937;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #111827;
   }
 
   .profiles-grid {

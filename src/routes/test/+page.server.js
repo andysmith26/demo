@@ -7,7 +7,7 @@ export async function load() {
 
     // Insert a test document
     await db.collection('test').insertOne({
-      message: 'Hello MongoDB!',
+      message: 'connection',
       timestamp: new Date(),
     });
 

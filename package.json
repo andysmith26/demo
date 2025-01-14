@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-vercel": "^5.5.2",
-		"mongodb": "^6.12.0"
+		"mongodb": "^6.12.0",
+		"p5": "^1.11.2"
 	}
 }
